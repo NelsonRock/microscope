@@ -56,7 +56,7 @@ Meteor.methods({
 	      var Future = Npm.require('fibers/future');
 	      var future = new Future();
 	      Meteor.setTimeout(function() {
-	        future.return();1
+	        future.return();
 	      }, 5 * 1000);
 	      future.wait();
 	    }
