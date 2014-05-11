@@ -45,12 +45,11 @@ Meteor.methods({
 
 		//cogemos las name claves de cada del formulario
 
-		var d = new Date().getTime();
 		var post = _.extend(_.pick(postAttributes, 'url','title','message'), {
 			userId : user._id,
 			author: user.username,
 			title: postAttributes.title + (this.isSimulation ? '(client)' : '(server)'),
-			submitted: d.getMonth()+1+"/"+d.getDate()
+			submitted: new Date().getTime()
 		});
  		if (! this.isSimulation){
 	      var Future = Npm.require('fibers/future');
