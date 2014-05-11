@@ -5,7 +5,7 @@ Posts = new Meteor.Collection('posts');
 Posts.allow({
 	/*insert: function (userId, doc) {
 		//only allow posting if you are logged in
-		return !! userId;	
+		return !! userId;
 	},*/
 	update: ownsDocument,
 	remove: ownsDocument
@@ -40,11 +40,11 @@ Meteor.methods({
 
 		//check que haya un post con el mismo link
 		if(postAttributes.url && postWithSameLink){
-			throw new Meteor.Meteor.Error(302, 'This link has been posted', postWithSameLink._id);
+			throw new Meteor.Error(302, 'This link has been posted', postWithSameLink._id);
 		}
 
 		//cogemos las name claves de cada del formulario
-		
+
 		var d = new Date().getTime();
 		var post = _.extend(_.pick(postAttributes, 'url','title','message'), {
 			userId : user._id,
