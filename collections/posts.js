@@ -49,7 +49,8 @@ Meteor.methods({
 			userId : user._id,
 			author: user.username,
 			title: postAttributes.title + (this.isSimulation ? '(client)' : '(server)'),
-			submitted: new Date().getTime()
+			submitted: new Date().getTime(),
+			lastEdit: null
 		});
  		if (! this.isSimulation){
 	      var Future = Npm.require('fibers/future');
