@@ -25,6 +25,7 @@ Posts.deny({
 
 //Los metodos de meteor del lado del servidor omiten allow por ello vamos a crear un metodo
 //meteor
+var regUrl = /^(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)( [a-zA-Z0-9\-\.\?\,\'\/\\\+&%\$#_]*)?$/;
 Meteor.methods({
 	post: function(postAttributes){
 		var user = Meteor.user(),
@@ -36,11 +37,15 @@ Meteor.methods({
 
 		//asegura que el post tenga un titulo
 		if(!postAttributes.title)
-			throw new Meteor.error(422, "Your pots no hace title");
+			throw new Meteor.error(422, "Your pots have not title");
 
 		//check que haya un post con el mismo link
 		if(postAttributes.url && postWithSameLink){
 			throw new Meteor.Error(302, 'This link has been posted', postWithSameLink._id);
+		}
+
+		if(!postAttributes.url.match(regUrl)){
+			throw new Meteor.Error(303, 'This url not normal ');
 		}
 
 		//cogemos las name claves de cada del formulario
